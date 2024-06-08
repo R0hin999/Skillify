@@ -46,6 +46,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
+    // @ts-ignore
     async jwt({ token, user, session, account }) {
       if (account?.provider === "google") {
         return {
