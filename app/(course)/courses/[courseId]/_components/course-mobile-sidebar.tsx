@@ -22,7 +22,7 @@ export const CourseMobileSidebar = ({
         <Menu />
       </SheetTrigger>
       <SheetContent side="left" className="p-0 bg-white w-72">
-        {/* @ts-ignore */}
+         {/* @ts-ignore */}
         <CourseSidebar course={course} progressCount={progressCount} />
       </SheetContent>
     </Sheet>
