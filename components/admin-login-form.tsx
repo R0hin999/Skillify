@@ -11,7 +11,9 @@ export const AdminLoginForm = () => {
     event.preventDefault();
     try {
       const resp = await axios.post("/api/isadmin", {
+        // @ts-ignore
         email: (event.target as HTMLFormElement).elements[0].value,
+        // @ts-ignore
         password: (event.target as HTMLFormElement).elements[1].value,
       });
       toast.success("Login Successful!");
