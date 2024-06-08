@@ -23,7 +23,7 @@ const SignUpForm = () => {
       const response = await axios.post("/api/register", data);
       return response.data;
     } catch (error) {
-      throw Error(error?.response?.data);
+      toast.error("Something went wrong!");
     }
   }
   async function AuthenticateUser(data: { email: string; password: string }) {
@@ -56,7 +56,6 @@ const SignUpForm = () => {
     onSubmit: (values) => {
       RegisterUser(values)
         .then((result) => {
-       
           setEmail(formik.values.email);
           setPassword(formik.values.password);
           setUsername(formik.values.username);
