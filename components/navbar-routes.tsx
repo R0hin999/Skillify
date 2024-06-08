@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 export const NavbarRoutes = () => {
   const pathname = usePathname();
   const { data } = useSession();
+// @ts-ignore
   const userId = data?.user?.id;
   const [isTeacher, setIsTeacher] = useState("");
   const isTeacherPage = pathname?.startsWith("/teacher");
