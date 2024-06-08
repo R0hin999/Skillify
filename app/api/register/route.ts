@@ -48,6 +48,7 @@ export async function POST(req: Request) {
       }
     }
   } catch (error) {
+    // @ts-ignore
     if ((error.meta.target[0] as string) === "email") {
       return NextResponse.json("Email is already Registered", { status: 400 });
     }
