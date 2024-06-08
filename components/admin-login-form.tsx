@@ -1,3 +1,4 @@
+"use client";
 import { FormEvent } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -17,7 +18,7 @@ export const AdminLoginForm = () => {
         password: (event.target as HTMLFormElement).elements[1].value,
       });
       toast.success("Login Successful!");
-      window.localStorage.setItem("admin", JSON.stringify(resp.data));
+      localStorage.setItem("admin", JSON.stringify(resp.data));
       setTimeout(() => {
         router.replace("/admin");
       }, 2500);

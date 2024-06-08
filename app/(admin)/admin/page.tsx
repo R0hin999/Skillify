@@ -32,7 +32,9 @@ interface User {
 
 const AdminDashboard = () => {
   const [admin, setadmin] = useState(
-    JSON.parse(window.localStorage.getItem("admin") as string) || null
+    localStorage.getItem("admin")
+      ? JSON.parse(localStorage.getItem("admin") as string)
+      : null
   );
   const [users, setUsers] = useState<User[] | string>("");
   const [loading, setLoading] = useState(false);
