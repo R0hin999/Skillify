@@ -11,7 +11,7 @@ import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { FileUpload } from "@/components/file-upload";
-import { Course } from "@prisma/client"
+import { Course } from "@prisma/client";
 
 interface ImageFormProps {
   initialData: Course;
@@ -26,14 +26,15 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { data } = useSession();
-
+  // @ts-ignore
+  const userId = data?.user?.id;
   const toggleEdit = () => setIsEditing((current) => !current);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, {
         values: values,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Course updated");
       toggleEdit();

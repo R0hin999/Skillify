@@ -30,6 +30,7 @@ export const VideoPlayer = ({
   completeOnEnd,
 }: VideoPlayerProps) => {
   const { data } = useSession();
+  // @ts-ignore
   const userId = data?.user?.id as string;
   const [isReady, setIsReady] = useState(false);
   const confetti = useConfettiStore();

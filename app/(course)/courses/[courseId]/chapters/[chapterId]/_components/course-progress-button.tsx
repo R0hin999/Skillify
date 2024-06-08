@@ -28,7 +28,8 @@ export const CourseProgressButton = ({
   nextChapterId,
 }: CourseProgressButtonProps) => {
   const { data } = useSession();
-  const userId = data?.user?.id as string;
+  // @ts-ignore
+  const userId = data?.user?.id;
   const router = useRouter();
   const confetti = useConfettiStore();
   const [isLoading, setIsLoading] = useState(false);

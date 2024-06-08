@@ -26,6 +26,8 @@ export const ChapterActions = ({
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const onClick = async () => {
     try {
@@ -33,13 +35,13 @@ export const ChapterActions = ({
       if (isPublished) {
         await axios.patch(
           `/api/courses/${courseId}/chapters/${chapterId}/unpublish`,
-          { userId: data?.user?.id as string }
+          { userId: userId }
         );
         toast.success("Chapter unpublished");
       } else {
         await axios.patch(
           `/api/courses/${courseId}/chapters/${chapterId}/publish`,
-          { userId: data?.user?.id as string }
+          { userId: userId }
         );
         toast.success("Chapter published");
       }
@@ -55,7 +57,7 @@ export const ChapterActions = ({
     try {
       setIsLoading(true);
       await axios.post(`/api/courses/${courseId}/chapters/${chapterId}`, {
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Chapter deleted");
       router.refresh();

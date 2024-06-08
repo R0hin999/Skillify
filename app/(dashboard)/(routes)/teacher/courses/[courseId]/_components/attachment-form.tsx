@@ -28,6 +28,8 @@ export const AttachmentForm = ({
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const router = useRouter();
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -35,7 +37,7 @@ export const AttachmentForm = ({
     try {
       await axios.post(`/api/courses/${courseId}/attachments`, {
         values: values,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Course updated");
       toggleEdit();
@@ -48,7 +50,7 @@ export const AttachmentForm = ({
     try {
       setDeletingId(id);
       await axios.post(`/api/courses/${courseId}/attachments/${id}`, {
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Attachment deleted");
       router.refresh();

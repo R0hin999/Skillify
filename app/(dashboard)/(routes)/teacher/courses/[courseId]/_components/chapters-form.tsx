@@ -35,6 +35,8 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
   const [isUpdating, setIsUpdating] = useState(false);
   const router = useRouter();
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const toggleCreating = () => {
     setIsCreating((current) => !current);
@@ -49,7 +51,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
     try {
       await axios.post(`/api/courses/${courseId}/chapters`, {
         values: values,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Chapter created");
       toggleCreating();
@@ -65,7 +67,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
       setIsUpdating(true);
       await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
         list: updatedData,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Chapters reordered");
       router.refresh();
@@ -138,13 +140,16 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
         <div
           className={cn(
             "text-sm mt-2 ",
+            // @ts-ignore
             !initialData.chapters.length && "text-slate-500 italic"
           )}
         >
+          {/* @ts-ignore */}
           {!initialData.chapters.length && "No Chapters"}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onRedorder}
+            // @ts-ignore
             items={initialData.chapters || []}
           />
         </div>

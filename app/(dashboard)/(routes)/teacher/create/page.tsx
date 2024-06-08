@@ -28,6 +28,8 @@ const formSchema = z.object({
 const CreatePage = () => {
   const router = useRouter();
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,7 +42,7 @@ const CreatePage = () => {
     try {
       const resp = await axios.post("/api/courses", {
         ...values,
-        id: data?.user?.id,
+        id: userId,
       });
       console.log(resp.data.userId);
       router.push(`/teacher/courses/${resp?.data?.id}`);

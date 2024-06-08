@@ -40,6 +40,8 @@ export const ChapterAccessForm = ({
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -52,7 +54,7 @@ export const ChapterAccessForm = ({
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, {
         values: values,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Chapter updated");
       toggleEdit();
@@ -109,7 +111,8 @@ export const ChapterAccessForm = ({
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormDescription>
-                      Check this box if you want to make this chapter as free to preview
+                      Check this box if you want to make this chapter as free to
+                      preview
                     </FormDescription>
                   </div>
                 </FormItem>

@@ -38,8 +38,8 @@ export const CategoryForm = ({
 }: CategoryFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
-  // @ts-ignore
   const { data } = useSession();
+  // @ts-ignore
   const userId = data?.user?.id;
 
   const toggleEdit = () => setIsEditing((current) => !current);

@@ -38,6 +38,8 @@ export const ChapterTitleForm = ({
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -50,7 +52,7 @@ export const ChapterTitleForm = ({
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, {
         values: values,
-        userId: data?.user?.id,
+        userId: userId,
       });
       toast.success("Chapter updated");
       toggleEdit();

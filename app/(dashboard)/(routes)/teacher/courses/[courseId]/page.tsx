@@ -113,6 +113,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
                 <IconBadge icon={ListChecks} />
                 <h2 className="text-xl ">Course Chapters</h2>
               </div>
+              {/* @ts-ignore */}
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
             <div>

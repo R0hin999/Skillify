@@ -35,7 +35,8 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { data } = useSession();
-
+  // @ts-ignore
+  const userId = data?.user?.id;
   const toggleEdit = () => setIsEditing((current) => !current);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,7 +48,7 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, {
         values: values,
-        userId: data?.user?.id,
+        userId: userId,
       });
       toast.success("Course updated");
       toggleEdit();

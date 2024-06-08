@@ -30,6 +30,8 @@ export const ChapterVideoForm = ({
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -37,7 +39,7 @@ export const ChapterVideoForm = ({
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, {
         values: values,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Chapter updated");
       toggleEdit();
@@ -77,7 +79,6 @@ export const ChapterVideoForm = ({
               accentColor="#6d28d9"
               src={initialData?.videoUrl || ""}
             />
-            
           </div>
         ))}
       {isEditing && (

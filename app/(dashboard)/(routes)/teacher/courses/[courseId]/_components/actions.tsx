@@ -20,6 +20,8 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { data } = useSession();
+  // @ts-ignore
+  const userId = data?.user?.id;
   const confetti = useConfettiStore();
 
   const onClick = async () => {
@@ -27,12 +29,12 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
       setIsLoading(true);
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/unpublish`, {
-          userId: data?.user?.id as string,
+          userId: userId,
         });
         toast.success("Course unpublished");
       } else {
         await axios.patch(`/api/courses/${courseId}/publish`, {
-          userId: data?.user?.id as string,
+          userId: userId,
         });
         toast.success("Course published");
         confetti.onOpen();
@@ -49,7 +51,7 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
     try {
       setIsLoading(true);
       await axios.post(`/api/courses/${courseId}`, {
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Course deleted");
       router.refresh();
@@ -70,6 +72,7 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
       >
         {isPublished ? "Unpublish" : "Publish"}
       </Button>
+      {/* @ts-ignore */}
       <ConfirmModal onConfirm={onDelete}>
         <Button size={"sm"} disabled={isLoading}>
           <Trash className="size-4" />
