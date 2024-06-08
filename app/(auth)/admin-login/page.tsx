@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const AdminLoginPage = () => {
   const [showLogin, setShowLogin] = useState(false);
 
-  const handleTrigger = (event) => {
+  const handleTrigger = (event: KeyboardEvent) => {
     if (event.key === "x" && event.ctrlKey) {
       setShowLogin(!showLogin);
     }
