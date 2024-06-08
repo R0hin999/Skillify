@@ -12,12 +12,12 @@ export const AdminLoginForm = () => {
     try {
       const resp = await axios.post("/api/isadmin", {
         // @ts-ignore
-        email: (event.target as HTMLFormElement).elements[0].value,
         // @ts-ignore
+        email: (event.target as HTMLFormElement).elements[0].value,
         password: (event.target as HTMLFormElement).elements[1].value,
       });
       toast.success("Login Successful!");
-      localStorage.setItem("admin", JSON.stringify(resp.data));
+      window.localStorage.setItem("admin", JSON.stringify(resp.data));
       setTimeout(() => {
         router.replace("/admin");
       }, 2500);
