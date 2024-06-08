@@ -2,7 +2,6 @@
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Button } from "@/components/ui/button";
 import { UserButton } from "@/components/user-button";
-import Image from "next/image";
 import { BenefitGrid } from "./_components/benefit_grid";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -12,19 +11,21 @@ import toast from "react-hot-toast";
 const InstructorPage = () => {
   const [loading, setLoading] = useState(false);
   const { data } = useSession();
+  //  @ts-ignore
+  const userId = data?.user?.id;
 
   async function ReqHandler() {
     try {
       setLoading(true);
       await axios.post("/api/instructor", {
-        userId: data?.user?.id,
+        userId: userId,
         username: data?.user?.name,
         useremail: data?.user?.email,
       });
       toast.success("Request sent successfully!");
-      setTimeout(()=>{
-toast("You will receive a response shortly!")
-      },1000)
+      setTimeout(() => {
+        toast("You will receive a response shortly!");
+      }, 1000);
     } catch (error) {
       toast.error("Something went wrong!");
     } finally {

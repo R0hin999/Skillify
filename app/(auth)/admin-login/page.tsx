@@ -14,6 +14,7 @@ const AdminLoginPage = () => {
     document.addEventListener("keydown", handleTrigger);
 
     return () => document.removeEventListener("keydown", handleTrigger);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showLogin]);
 
   return <div>{showLogin && "ROHIN"}</div>;
