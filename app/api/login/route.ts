@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   try {
     const { email, password } = (await req.json()) as BodyData;
     // console.log(email);
-
+    // @ts-ignore
     const val: DbData = await db.userdata.findUnique({
       where: {
         email: email,
