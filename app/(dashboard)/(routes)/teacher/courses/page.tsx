@@ -17,9 +17,16 @@ async function getData(): Promise<any[]> {
     // ...
   ];
 }
+
+interface SessionProps {
+  user: {
+    id: string;
+  };
+}
+
 const CoursePage = async () => {
-  const session = await getServerSession(authOptions);
-  const userId: string = session?.user?.id;
+  const session: SessionProps | null = await getServerSession(authOptions);
+  const userId = session?.user?.id;
   if (!userId) {
     return redirect("/");
   }

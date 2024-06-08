@@ -72,7 +72,8 @@ export const authOptions: NextAuthOptions = {
           {
             email: profile?.email,
             username: profile?.name,
-            pfp: profile?.picture,
+            // @ts-ignore
+            pfp: profile?.picture as string,
           }
         );
         account.sub = resp?.data?.id;

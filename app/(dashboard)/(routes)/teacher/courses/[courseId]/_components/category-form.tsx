@@ -38,7 +38,9 @@ export const CategoryForm = ({
 }: CategoryFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
+  // @ts-ignore
   const { data } = useSession();
+  const userId = data?.user?.id;
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
@@ -51,7 +53,7 @@ export const CategoryForm = ({
     try {
       await axios.patch(`/api/courses/${courseId}`, {
         values: values,
-        userId: data?.user?.id as string,
+        userId: userId,
       });
       toast.success("Course updated");
       toggleEdit();

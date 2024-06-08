@@ -7,6 +7,12 @@ import { redirect } from "next/navigation";
 import { CourseSidebar } from "./_components/course-sidebar";
 import { CourseNavbar } from "./_components/course-navbar";
 
+interface SessionProps {
+  user: {
+    id: string;
+  };
+}
+
 const CourseLayout = async ({
   children,
   params,
@@ -14,7 +20,7 @@ const CourseLayout = async ({
   children: React.ReactNode;
   params: { courseId: string };
 }) => {
-  const session = await getServerSession(authOptions);
+  const session: SessionProps | null = await getServerSession(authOptions);
   const userId = session?.user?.id;
   if (!userId) {
     return redirect("/");
@@ -49,14 +55,13 @@ const CourseLayout = async ({
   return (
     <div className="h-full">
       <div className="h-[80px] md:pl-80 fixed inset-y-0 w-full z-50">
+        {/* @ts-ignore */}
         <CourseNavbar course={course} progressCount={progressCount} />
       </div>
       <div className="hidden md:flex h-full w-80 flex-col fixed inset-y-0 z-50">
         <CourseSidebar course={course} progressCount={progressCount} />
       </div>
-      <main className="md:pl-80 h-full pt-[80px]">
-      {children}
-      </main>
+      <main className="md:pl-80 h-full pt-[80px]">{children}</main>
     </div>
   );
 };
