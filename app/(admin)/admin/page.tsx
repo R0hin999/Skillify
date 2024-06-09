@@ -21,6 +21,7 @@ import { Pencil } from "lucide-react";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
+import { useAdminData } from "@/hooks/use-admin-data";
 
 interface User {
   id: string;
@@ -31,11 +32,9 @@ interface User {
 }
 
 const AdminDashboard = () => {
-  const [admin, setadmin] = useState(
-    localStorage.getItem("admin")
-      ? JSON.parse(localStorage.getItem("admin") as string)
-      : null
-  );
+  const adminStore = useAdminData();
+  const [admin, setadmin] = useState(adminStore.data);
+
   const [users, setUsers] = useState<User[] | string>("");
   const [loading, setLoading] = useState(false);
 
@@ -61,7 +60,8 @@ const AdminDashboard = () => {
     try {
       setLoading(true);
       const resp = await axios.patch("/api/reqdata", {
-        adminId: admin?.id,
+        // @ts-ignore
+        adminId: adminStore.data.id,
         userId,
         status,
       });
@@ -73,13 +73,14 @@ const AdminDashboard = () => {
       setLoading(false);
     }
   };
+  console.log(users);
 
   return (
     <div>
       <div className="p-4 border-b h-full flex items-center bg-white shadow-sm justify-end">
         <Button
           onClick={() => {
-            setadmin(null);
+            adminStore.setData({});
             redirect("/login");
           }}
         >
@@ -87,7 +88,8 @@ const AdminDashboard = () => {
         </Button>
       </div>
       <div className="px-10 md:px-28 text-xl mt-20 flex items-center">
-        Hey, {admin?.username} <p className="animate-bounce ">👋</p>
+        {/* @ts-ignore */}
+        Hey, {adminStore?.data?.username} <p className="animate-bounce ">👋</p>
       </div>
       <div className="px-10 md:px-28 mt-4 ">
         <Table>
@@ -136,6 +138,7 @@ const AdminDashboard = () => {
                           onClick={() => {
                             PerformAction(true, user.userId);
                           }}
+                          className="hover:bg-green-400"
                         >
                           Accept
                         </DropdownMenuItem>
@@ -143,6 +146,7 @@ const AdminDashboard = () => {
                           onClick={() => {
                             PerformAction(false, user.userId);
                           }}
+                          className="hover:bg-red-400"
                         >
                           Reject
                         </DropdownMenuItem>

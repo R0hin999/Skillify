@@ -5,8 +5,10 @@ import { Input } from "./ui/input";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useAdminData } from "@/hooks/use-admin-data";
 
 export const AdminLoginForm = () => {
+  const adminStore = useAdminData();
   const router = useRouter();
   async function SubmitHandler(event: FormEvent) {
     event.preventDefault();
@@ -18,7 +20,7 @@ export const AdminLoginForm = () => {
         password: (event.target as HTMLFormElement).elements[1].value,
       });
       toast.success("Login Successful!");
-      localStorage.setItem("admin", JSON.stringify(resp.data));
+      adminStore.setData(resp.data);
       setTimeout(() => {
         router.replace("/admin");
       }, 2500);

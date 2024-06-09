@@ -13,6 +13,7 @@ const InstructorPage = () => {
   const { data } = useSession();
   //  @ts-ignore
   const userId = data?.user?.id;
+  console.log(data);
 
   async function ReqHandler() {
     try {
