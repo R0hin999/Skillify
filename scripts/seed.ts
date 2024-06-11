@@ -7,6 +7,7 @@ async function main() {
       data: [
         { name: "IT & Software" },
         { name: "Business" },
+        { name: "Culinary" },
         { name: "Art & Design" },
         { name: "Music" },
         { name: "Film & Photography" },

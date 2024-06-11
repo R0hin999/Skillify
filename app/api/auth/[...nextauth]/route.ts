@@ -57,8 +57,6 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token, user }) {
-
-      
       return {
         ...session,
         user: {
@@ -85,14 +83,23 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
   },
-  session: { strategy: "jwt" },
+
+  session: { strategy: "jwt", maxAge: 60 * 1440 },
+  jwt: {
+    maxAge: 60 * 1440,
+  },
+  cookies: {
+    csrfToken: {
+      name: `next-auth.csrf-token`,
+      options: { maxAge: 60 * 1440 },
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/login",
   },
 };
 
-// export default NextAuth(authOptions);
 
 const handler = NextAuth(authOptions);
 

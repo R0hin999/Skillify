@@ -39,19 +39,14 @@ export const ChaptersList = ({
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const items = Array.from(chapters);
-    // created array from Chapters array
+
     const [reorderdItem] = items.splice(result.source.index, 1);
-    // Extracted Reordered Item in arr form
     items.splice(result.destination.index, 0, reorderdItem);
 
-    // Added the item to array with its destination(where its dropped) index
     const startIndex = Math.min(result.source.index, result.destination.index);
     const endIndex = Math.max(result.source.index, result.destination.index);
-    // extracting start and end index
-    const updatedChapters = items.slice(
-      startIndex,
-      endIndex + 1
-    ); /* Extracting items only with changed positions  */
+
+    const updatedChapters = items.slice(startIndex, endIndex + 1);
 
     setChapters(items);
 
@@ -59,13 +54,8 @@ export const ChaptersList = ({
       id: chapter.id,
       position: items.findIndex((item) => item.id == chapter.id),
     }));
-    // changing items position acc to their current position through items array which has rearranged items
 
-    onReorder(
-      bulkUpdateData
-    ); /* calling reorder func to send updated data in db*/
-
-    // We first rearrange chapters in our props items then we extract source and destination and then we update the position of src and dest based on our rearranged items value
+    onReorder(bulkUpdateData);
   };
 
   if (!isMounted) {

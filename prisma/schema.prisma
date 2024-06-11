@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -47,12 +41,10 @@ model Course {
 
   chapters    Chapter[]
   attachments Attachment[]
-  // We can define relation in prisma between different tables like one above is going to be a 1:many reltion and under the hood its going to implement foreign key during migration .
   purchases   Purchase[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // This model has a full-text search index on title
 
   @@index([categoryId])
 }
@@ -133,5 +125,3 @@ model StripeCustomer {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
-// Forget Password: Get EMail -> send link on  mail -> Link containing a page to update password

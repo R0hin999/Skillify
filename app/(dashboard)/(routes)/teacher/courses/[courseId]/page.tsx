@@ -139,4 +139,3 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
 export default CourseIdPage;
 
-// FORM PROCESS IN UPLOADTHING: providing file to uploadThing component then if it sends us back the url then we make api call to send that url to database as well as userId so that we can check whether its the owner who is updating data.

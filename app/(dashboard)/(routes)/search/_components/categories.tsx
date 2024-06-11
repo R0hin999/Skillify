@@ -9,6 +9,7 @@ import {
   FcPicture,
   FcSalesPerformance,
   FcSportsMode,
+  FcDoughnutChart,
 } from "react-icons/fc";
 
 interface CategoriesProps {
@@ -18,6 +19,7 @@ import { IconType } from "react-icons";
 import { CategoryItem } from "./category-item";
 const iconMap: Record<Category["name"], IconType> = {
   Music: FcMusic,
+  Culinary: FcDoughnutChart,
   "Film & Photography": FcFilmReel,
   "Health & Fitness": FcSportsMode,
   Accounting: FcSalesPerformance,
@@ -25,7 +27,6 @@ const iconMap: Record<Category["name"], IconType> = {
   Business: FcBusiness,
   "Art & Design": FcPicture,
 };
-
 
 export const Categories = ({ items }: CategoriesProps) => {
   return (

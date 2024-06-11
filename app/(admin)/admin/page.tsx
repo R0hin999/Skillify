@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Pencil } from "lucide-react";
 import axios from "axios";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useAdminData } from "@/hooks/use-admin-data";
 
@@ -34,6 +34,7 @@ interface User {
 const AdminDashboard = () => {
   const adminStore = useAdminData();
   const [admin, setadmin] = useState(adminStore.data);
+  const router = useRouter();
 
   const [users, setUsers] = useState<User[] | string>("");
   const [loading, setLoading] = useState(false);
@@ -81,7 +82,7 @@ const AdminDashboard = () => {
         <Button
           onClick={() => {
             adminStore.setData({});
-            redirect("/login");
+            router.replace("/login");
           }}
         >
           Signout

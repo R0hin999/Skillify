@@ -27,7 +27,7 @@ export const Chart = ({ data }: ChartProps) => {
             fontSize={12}
             axisLine={false}
             tickLine={false}
-            tickFormatter={(value) => `$${value}`}
+            tickFormatter={(value) => `₹${value}`}
           />
           <Bar dataKey="total" fill="#661aff" radius={[4, 4, 0, 1]} />
         </BarChart>
